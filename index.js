@@ -4,12 +4,12 @@ const dotenv = require('dotenv')
 const oauth = require('./routes/oAuthRoutes')
 const client = require('./config/db')
 const core = require('./routes/coreRoutes')
-
+const authenticateToken = require('./utils/authenticateToken')
 dotenv.config()
 
 app.use(express.json())
 app.use("/oauth",oauth)
-app.use("/api",core)
+app.use("/api",authenticateToken,core)
 app.listen(process.env.PORT,()=>{
     console.log(`Running on ${process.env.PORT}`)
 })

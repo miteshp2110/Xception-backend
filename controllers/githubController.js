@@ -1,5 +1,5 @@
 //This manages the oAuth related to Github.
-const {getToken,getRefreshToken} = require('../utils/jwtClient')
+const {getToken} = require('../utils/jwtClient')
 const passportGithub = require('passport')
 const GitHubStrategy = require('passport-github2').Strategy
 const dotenv = require('dotenv')
@@ -27,7 +27,7 @@ passportGithub.use(new GitHubStrategy(
             if(! await isExisting(email)){
                 await client.db("XceptionPackage").collection("users").insertOne({email:email})
             }
-            const resp = {token:getToken(email),refreshToken:getRefreshToken(email)}
+            const resp = {token:getToken(email)}
             return done(null,resp)
         }
         catch(err){
@@ -37,7 +37,7 @@ passportGithub.use(new GitHubStrategy(
 ))
 
 const githubCallback = (req,res)=>{
-    // console.log(req.user)
+    console.log(req.user)
     res.redirect(`${CLIENT_URL}/?jwt=${req.user}`)
     
 }

@@ -2,7 +2,7 @@ const passportGoogle = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const dotenv = require('dotenv')
 dotenv.config()
-const {getToken,getRefreshToken} = require('../utils/jwtClient')
+const {getToken} = require('../utils/jwtClient')
 const CLIENT_URL = process.env.CLIENT_URL
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_SECRET = process.env.GOOGLE_SECRET
@@ -23,7 +23,7 @@ passportGoogle.use(new GoogleStrategy({
             if(! await isExisting(email)){
                 await client.db("XceptionPackage").collection("users").insertOne({email:email})
             }
-            const resp = {token:getToken(email),refreshToken:getRefreshToken(email)}
+            const resp = {token:getToken(email)}
             return done(null,resp)
         }
         catch(err)
@@ -34,7 +34,7 @@ passportGoogle.use(new GoogleStrategy({
 ))
 
 const googleCallback = (req,res)=>{
-    // console.log(req.user)
+    console.log(req.user)
     
     res.redirect(`${CLIENT_URL}/?jwt=${req.user}`)
     // res.redirect(`google.com`)

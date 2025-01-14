@@ -7,7 +7,7 @@ dotenv.config()
 const JWT_SECRET = process.env.JWT_SECRET
 
 function getToken(email){
-    const token =  jwt.sign({email:email},JWT_SECRET,{algorithm:'HS256',expiresIn:'30m'})
+    const token =  jwt.sign({email:email},JWT_SECRET,{algorithm:'HS256',expiresIn:'7d'})
     return token
 }
 
