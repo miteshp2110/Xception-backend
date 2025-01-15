@@ -5,7 +5,11 @@ const oauth = require('./routes/oAuthRoutes')
 const client = require('./config/db')
 const core = require('./routes/coreRoutes')
 const authenticateToken = require('./utils/authenticateToken')
+const {initExchanges} = require('./utils/rabbitManager')
 dotenv.config()
+
+initExchanges()
+
 
 app.use(express.json())
 app.use("/oauth",oauth)
