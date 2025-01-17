@@ -19,7 +19,7 @@ const createProject = async(req,res)=>{
 
         const apiKey = generateApiKey()
 
-        await collection.insertOne({name:name,key:apiKey,email:req.user})
+        await collection.insertOne({name:name,apiKey:apiKey,email:req.user})
         await client.db("XceptionPackage").collection("exceptions").insertOne({apiKey:apiKey,exceptions:[]})
 
         return res.status(201).json({"message":"Project created successfully","apiKey":apiKey})

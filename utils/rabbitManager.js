@@ -1,6 +1,5 @@
 const getQueueChannel = require('../config/queue')
 const client = require('../config/db')
-const { JsonWebTokenError } = require('jsonwebtoken')
 const processedExchange = 'processedExchange'
 const rawExchange = 'rawExchange'
 
@@ -21,9 +20,9 @@ async function initExchanges() {
         await channel.assertExchange(processedExchange,"fanout",{durable:true})
 
 
-        rawExceptionQueue = await channel.assertQueue("rawExceptionQueue",{durable:true,autoDelete:true})
-        emailQueue = await channel.assertQueue("emailQueue",{durable:true,autoDelete:true})
-        dbQueue = await channel.assertQueue("dbQueue",{durable:true,autoDelete:true})
+        rawExceptionQueue = await channel.assertQueue("rawExceptionQueue",{durable:true,autoDelete:false})
+        emailQueue = await channel.assertQueue("emailQueue",{durable:true,autoDelete:false})
+        dbQueue = await channel.assertQueue("dbQueue",{durable:true,autoDelete:false})
 
         await channel.bindQueue(rawExceptionQueue.queue,rawExchange,'')
         await channel.bindQueue(emailQueue.queue,processedExchange,'')
