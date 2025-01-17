@@ -1,4 +1,4 @@
-const {publishToLlm} = require('../utils/rabbitManager')
+const {publishToRaw} = require('../utils/rabbitManager')
 
 const addException = async(req,res)=>{
     const {data} = req.body
@@ -7,7 +7,7 @@ const addException = async(req,res)=>{
         return res.status(400).json({"message":"Invalid request body"})
     }
 
-    const published = await publishToLlm(data)
+    const published = await publishToRaw(data)
 
     if(published){
         return res.status(200).json({"message":"success"})
