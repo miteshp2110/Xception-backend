@@ -83,7 +83,7 @@ async function consumeFromDbQueue() {
                 const data = JSON.parse(message.content)
                 const exists = await collection.find({apiKey:data.apiKey}).toArray()
                 if(exists.length == 1){
-                    await collection.updateOne({apiKey:data.apiKey},{$push:{exceptions:{exception:data.exception,llmResponse:data.response}}})
+                    await collection.updateOne({apiKey:data.apiKey},{$push:{exceptions:{exception:data.exception,llmResponse:data.llmResponse}}})
                     channel.ack(message)
                 }
                 

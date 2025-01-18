@@ -4,16 +4,14 @@ const dotenv = require('dotenv')
 const oauth = require('./routes/oAuthRoutes')
 const client = require('./config/db')
 const core = require('./routes/coreRoutes')
-const {initExchanges,consumeFromDbQueue} = require('./utils/rabbitManager')
+const {initExchanges,consumeFromDbQueue,publishToProcessed} = require('./utils/rabbitManager')
 dotenv.config()
 
-initExchanges()
 
-setTimeout(()=>{
+initExchanges().then(()=>{
     consumeFromDbQueue()
     // publishToProcessed({apiKey:"2ClSvVA4pHf1",exception:"Some exception text",response:"llm response"})
-
-},2000) 
+})
   
 app.use(express.json())
 
