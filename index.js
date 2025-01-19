@@ -10,7 +10,7 @@ dotenv.config()
 
 initExchanges().then(()=>{
     consumeFromDbQueue()
-    // publishToProcessed({apiKey:"2ClSvVA4pHf1",exception:"Some exception text",response:"llm response"})
+
 })
   
 app.use(express.json())
