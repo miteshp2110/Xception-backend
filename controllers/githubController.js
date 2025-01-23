@@ -37,7 +37,7 @@ passportGithub.use(new GitHubStrategy(
 ))
 
 const githubCallback = (req,res)=>{
-    console.log(req.user)
+    // console.log(req.user)
     res.redirect(`${CLIENT_URL}/?jwt=${req.user}`)
     
 }

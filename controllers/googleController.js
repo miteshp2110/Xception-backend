@@ -34,7 +34,7 @@ passportGoogle.use(new GoogleStrategy({
 ))
 
 const googleCallback = (req,res)=>{
-    console.log(req.user)
+    // console.log(req.user)
     
     res.redirect(`${CLIENT_URL}/?jwt=${req.user}`)
     // res.redirect(`google.com`)
