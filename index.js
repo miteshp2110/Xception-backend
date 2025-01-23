@@ -4,8 +4,10 @@ const dotenv = require('dotenv')
 const oauth = require('./routes/oAuthRoutes')
 const client = require('./config/db')
 const core = require('./routes/coreRoutes')
+const cors  = require('cors')
 const {initExchanges,consumeFromDbQueue,publishToProcessed} = require('./utils/rabbitManager')
 dotenv.config()
+app.use(cors())
 
 
 initExchanges().then(()=>{
