@@ -27,7 +27,7 @@ passportGithub.use(new GitHubStrategy(
             if(! await isExisting(email)){
                 await client.db("XceptionPackage").collection("users").insertOne({email:email})
             }
-            const resp = {token:getToken(email)}
+            const resp = {token:getToken(email),email:email}
             return done(null,resp)
         }
         catch(err){
@@ -38,7 +38,8 @@ passportGithub.use(new GitHubStrategy(
 
 const githubCallback = (req,res)=>{
     // console.log(req.user)
-    res.redirect(`${CLIENT_URL}/?jwt=${req.user}`)
+    const jwtString = encodeURIComponent(JSON.stringify(req.user))
+    res.redirect(`${CLIENT_URL}/?jwt=${jwtString}`)
     
 }
 

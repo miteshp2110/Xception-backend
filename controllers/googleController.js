@@ -23,7 +23,7 @@ passportGoogle.use(new GoogleStrategy({
             if(! await isExisting(email)){
                 await client.db("XceptionPackage").collection("users").insertOne({email:email})
             }
-            const resp = {token:getToken(email)}
+            const resp = {token:getToken(email),email:email}
             return done(null,resp)
         }
         catch(err)
@@ -35,8 +35,8 @@ passportGoogle.use(new GoogleStrategy({
 
 const googleCallback = (req,res)=>{
     // console.log(req.user)
-    
-    res.redirect(`${CLIENT_URL}/?jwt=${req.user}`)
+    const jwtString = encodeURIComponent(JSON.stringify(req.user))
+    res.redirect(`${CLIENT_URL}/?jwt=${jwtString}`)
     // res.redirect(`google.com`)
 }
 
